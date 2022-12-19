@@ -30,23 +30,34 @@ dataloader:
 
 train_batch_size: 448
 train_dataset:
-  streaming_enwiki:
-    local: /tmp/mds-cache/mds-wiki/
-    remote: s3://mosaicml-internal-dataset-enwiki-20200101/mds/2-mlm-020/
+  streaming_c4:
+    version: 2
+    local: /scratch/mds_datasets/c4v2
+    remote: /scratch/mds_datasets/c4v2
     shuffle: true
+    tokenizer_name: bert-large-uncased
+    max_seq_len: 128
+    mlm: true
+    mlm_probability: 0.15
+    group_method: truncate
     split: train
-    drop_last: true
+    # drop_last: true
 
 eval_batch_size: 448
 eval_interval: 55ba
 evaluators:
 - eval_dataset:
-    streaming_enwiki:
-      local: /tmp/mds-cache/mds-wiki/
-      remote: s3://mosaicml-internal-dataset-enwiki-20200101/mds/2b/
+    streaming_c4:
+      version: 2
+      local: /scratch/mds_datasets/c4v2
+      remote: /scratch/mds_datasets/c4v2
       shuffle: false
       split: val
-      drop_last: false
+      tokenizer_name: bert-large-uncased
+      max_seq_len: 128
+      group_method: truncate
+      mlm: true
+      mlm_probability: 0.15
 
   label: bert_pre_training
   metric_names:
@@ -93,9 +104,3 @@ schedulers:
     - 1375ba
     - 1400ba
     - 1600ba
-
-load_object_store:
-  s3:
-    bucket: mosaicml-internal-checkpoints-bert
-load_path: bert-large-baseline-512/checkpoints/bert_large_baseline.pt
-load_weights_only: true
