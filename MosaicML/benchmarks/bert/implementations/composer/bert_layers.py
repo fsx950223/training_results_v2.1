@@ -24,8 +24,8 @@ from typing import Optional, Tuple, Union
 import torch
 import torch.nn as nn
 from einops import rearrange, repeat
-from flash_attn.bert_padding import pad_input, unpad_input
-from flash_attn.flash_attn_interface import flash_attn_unpadded_qkvpacked_func
+# from flash_attn.bert_padding import pad_input, unpad_input
+# from flash_attn.flash_attn_interface import flash_attn_unpadded_qkvpacked_func
 from transformers.modeling_outputs import MaskedLMOutput
 from transformers.models.bert.modeling_bert import (BertAttention, BertEmbeddings, BertIntermediate, BertOutput,
                                                     BertPredictionHeadTransform, BertPreTrainedModel, BertSelfOutput)
