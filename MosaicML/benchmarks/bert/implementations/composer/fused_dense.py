@@ -11,7 +11,7 @@
 # TD [2022-04-19] The fused backward seems fine now. Also fused dense gelu dense works.
 
 # Requires the performance repository
-# import fused_dense_lib as fused_dense_cuda
+import fused_dense_lib as fused_dense_cuda
 import numpy as np
 import torch
 import torch.nn as nn
@@ -48,10 +48,10 @@ fused_dense_function_td = FusedDenseFuncTD.apply
 class FusedDenseTD(nn.Linear):
 
     def forward(self, x):
-        # if x.is_cuda and self.bias is not None:
-        #     return fused_dense_function_td(x, self.weight, self.bias)
-        # else:
-        return F.linear(x, self.weight, self.bias)
+        if x.is_cuda and self.bias is not None:
+            return fused_dense_function_td(x, self.weight, self.bias)
+        else:
+            return F.linear(x, self.weight, self.bias)
 
 
 class FusedDenseResidualFunc(torch.autograd.Function):

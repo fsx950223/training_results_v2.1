@@ -28,36 +28,26 @@ dataloader:
   prefetch_factor: 2
   timeout: 0
 
-train_batch_size: 448
+train_batch_size: 256
 train_dataset:
-  streaming_c4:
-    version: 2
-    local: /scratch/mds_datasets/c4v2
-    remote: /scratch/mds_datasets/c4v2
+  streaming_enwiki:
+    # version: 2
+    local: /scratch/mds_datasets/enwiki/
+    remote: /scratch/mds_datasets/enwiki/
     shuffle: true
-    tokenizer_name: bert-large-uncased
-    max_seq_len: 128
-    mlm: true
-    mlm_probability: 0.15
-    group_method: truncate
     split: train
-    # drop_last: true
+    drop_last: true
 
-eval_batch_size: 448
+eval_batch_size: 256
 eval_interval: 55ba
 evaluators:
 - eval_dataset:
-    streaming_c4:
-      version: 2
-      local: /scratch/mds_datasets/c4v2
-      remote: /scratch/mds_datasets/c4v2
+    streaming_enwiki:
+      # version: 2
+      local: /scratch/mds_datasets/enwiki/
+      remote: /scratch/mds_datasets/enwiki/
       shuffle: false
       split: val
-      tokenizer_name: bert-large-uncased
-      max_seq_len: 128
-      group_method: truncate
-      mlm: true
-      mlm_probability: 0.15
 
   label: bert_pre_training
   metric_names:
