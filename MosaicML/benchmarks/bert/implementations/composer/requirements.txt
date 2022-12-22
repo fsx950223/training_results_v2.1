@@ -1,2 +1,3 @@
 git+https://github.com/mlperf/logging.git@2.1.0-rc3
 git+https://github.com/mosaicml/composer.git@mlperf-v2.1#egg=mosaicml[streaming]
+einops==0.6.0

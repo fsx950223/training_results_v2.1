@@ -31,7 +31,6 @@ dataloader:
 train_batch_size: 256
 train_dataset:
   streaming_enwiki:
-    # version: 2
     local: /scratch/mds_datasets/enwiki/
     remote: /scratch/mds_datasets/enwiki/
     shuffle: true
@@ -43,11 +42,11 @@ eval_interval: 55ba
 evaluators:
 - eval_dataset:
     streaming_enwiki:
-      # version: 2
       local: /scratch/mds_datasets/enwiki/
       remote: /scratch/mds_datasets/enwiki/
       shuffle: false
       split: val
+      drop_last: false
 
   label: bert_pre_training
   metric_names:
@@ -94,3 +93,6 @@ schedulers:
     - 1375ba
     - 1400ba
     - 1600ba
+
+load_path: /scratch/sixifang/bert_large_baseline.pt
+load_weights_only: true
